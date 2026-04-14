@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="900">
+<title>Kalshi BTC Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #0a0e1a;
+    --surface:  #111827;
+    --border:   #1e2d40;
+    --text:     #e2e8f0;
+    --muted:    #64748b;
+    --green:    #00e5a0;
+    --red:      #ff4d6d;
+    --blue:     #38bdf8;
+    --yellow:   #fbbf24;
+    --mono:     'Space Mono', monospace;
+    --sans:     'DM Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 24px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .logo span {
+    color: var(--green);
+    font-size: 20px;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .updated {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+  }
+  .updated em {
+    display: block;
+    color: var(--blue);
+    font-style: normal;
+  }
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+  }
+  .card-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-family: var(--mono);
+  }
+  .card-value {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .card-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+  .section-title {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .chart-wrap {
+    width: 100%;
+    overflow: hidden;
+  }
+  svg.sparkline {
+    width: 100%;
+    height: 130px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead th {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    transition: background 0.15s;
+  }
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+  tbody td {
+    padding: 9px 10px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text);
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .badge.yes { background: rgba(0,229,160,0.15); color: var(--green); }
+  .badge.no  { background: rgba(255,77,109,0.15); color: var(--red); }
+  .pulse {
+    display: inline-block;
+    background: rgba(251,191,36,0.15);
+    color: var(--yellow);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .alert {
+    background: rgba(251,191,36,0.1);
+    border: 1px solid rgba(251,191,36,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--yellow);
+    margin-bottom: 16px;
+  }
+  .alert.kill {
+    background: rgba(255,77,109,0.1);
+    border-color: rgba(255,77,109,0.3);
+    color: var(--red);
+  }
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 8px 0 16px;
+  }
+  .pending-row td { color: var(--yellow); }
+  @media (max-width: 768px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span>₿</span>
+    Kalshi BTC · 15-Min Markets
+  </div>
+  <div class="updated">
+    Auto-refreshes every 15 min
+    <em>Last update: 2026-04-14 07:39:20</em>
+  </div>
+</header>
+
+
+
+
+<div class="grid-4">
+  <div class="card">
+    <div class="card-label">Total PnL (all time)</div>
+    <div class="card-value" style="color:#00e5a0">$+2.2410</div>
+    <div class="card-sub">48 settled trades</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Today's PnL</div>
+    <div class="card-value" style="color:#00e5a0">$+0.8480</div>
+    <div class="card-sub">14 trades today</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Win Rate (all time)</div>
+    <div class="card-value" style="color:var(--blue)">95.8%</div>
+    <div class="card-sub">46W / 2L</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Today Win Rate</div>
+    <div class="card-value" style="color:var(--blue)">100.0%</div>
+    <div class="card-sub">14W / 0L today</div>
+  </div>
+</div>
+
+<div class="grid-4">
+  <div class="card">
+    <div class="card-label">Best Single Trade</div>
+    <div class="card-value" style="color:var(--green)">$+0.2550</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Worst Single Trade</div>
+    <div class="card-value" style="color:var(--red)">$-0.8950</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Daily Loss Cap</div>
+    <div class="card-value" style="color:var(--muted)">$3.00</div>
+    <div class="card-sub">Used today: $0.0000</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Live Positions</div>
+    <div class="card-value" style="color:var(--yellow)">1</div>
+    <div class="card-sub">awaiting settlement</div>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">📈 Cumulative PnL — All Trades</h2>
+  <div class="chart-wrap">
+    <svg class="sparkline" viewBox="0 0 600 130" preserveAspectRatio="none">
+      <!-- Zero line -->
+      <line x1="0" y1="110.0" x2="600" y2="110.0"
+            stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="4,4"/>
+      <!-- Fill area -->
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#00e5a0" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#00e5a0" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M 0.0,110.0 L 12.8,105.5 L 25.5,103.5 L 38.3,102.4 L 51.1,97.7 L 63.8,97.1 L 76.6,91.5 L 89.4,82.2 L 102.1,80.7 L 114.9,74.8 L 127.7,72.2 L 140.4,68.7 L 153.2,64.0 L 166.0,63.3 L 178.7,62.7 L 191.5,52.7 L 204.3,49.6 L 217.0,41.3 L 229.8,34.9 L 242.6,68.2 L 255.3,67.8 L 268.1,59.0 L 280.9,52.7 L 293.6,51.5 L 306.4,40.0 L 319.1,30.5 L 331.9,26.6 L 344.7,20.3 L 357.4,60.8 L 370.2,58.2 L 383.0,57.5 L 395.7,54.0 L 408.5,51.2 L 421.3,48.4 L 434.0,46.8 L 446.8,45.4 L 459.6,42.1 L 472.3,39.7 L 485.1,31.8 L 497.9,25.9 L 510.6,24.1 L 523.4,23.2 L 536.2,20.8 L 548.9,18.0 L 561.7,16.8 L 574.5,14.3 L 587.2,10.5 L 600.0,10.0 L 600,130 L 0,130 Z" fill="url(#g1)"/>
+      <!-- Line -->
+      <path d="M 0.0,110.0 L 12.8,105.5 L 25.5,103.5 L 38.3,102.4 L 51.1,97.7 L 63.8,97.1 L 76.6,91.5 L 89.4,82.2 L 102.1,80.7 L 114.9,74.8 L 127.7,72.2 L 140.4,68.7 L 153.2,64.0 L 166.0,63.3 L 178.7,62.7 L 191.5,52.7 L 204.3,49.6 L 217.0,41.3 L 229.8,34.9 L 242.6,68.2 L 255.3,67.8 L 268.1,59.0 L 280.9,52.7 L 293.6,51.5 L 306.4,40.0 L 319.1,30.5 L 331.9,26.6 L 344.7,20.3 L 357.4,60.8 L 370.2,58.2 L 383.0,57.5 L 395.7,54.0 L 408.5,51.2 L 421.3,48.4 L 434.0,46.8 L 446.8,45.4 L 459.6,42.1 L 472.3,39.7 L 485.1,31.8 L 497.9,25.9 L 510.6,24.1 L 523.4,23.2 L 536.2,20.8 L 548.9,18.0 L 561.7,16.8 L 574.5,14.3 L 587.2,10.5 L 600.0,10.0" fill="none" stroke="#00e5a0" stroke-width="2"/>
+    </svg>
+  </div>
+</div>
+
+
+        <div class="section">
+            <h2 class="section-title">⚡ Live Positions</h2>
+            <table>
+                <thead><tr><th>Time</th><th>Contract</th><th>Signal</th><th>Entry</th><th>Min Left</th><th>Status</th></tr></thead>
+                <tbody>
+        <tr class="pending-row">
+            <td>16:55:32</td>
+            <td>26APR131800-00</td>
+            <td><span class="badge no">BUY_NO</span></td>
+            <td>23.5¢</td>
+            <td>4.4 min</td>
+            <td><span class="pulse">LIVE</span></td>
+        </tr></tbody>
+            </table>
+        </div>
+
+<div class="section">
+  <h2 class="section-title">📋 Recent Trades (last 20)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Time</th><th>Contract</th><th>Signal</th>
+        <th>Entry</th><th>Result</th><th>PnL</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>04/14 07:12</td>
+            <td>26APR140815-15</td>
+            <td><span class="badge no">BUY_NO</span></td>
+            <td>1.2¢</td>
+            <td><span class="badge no">NO</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0120</td>
+        </tr>
+        <tr>
+            <td>04/14 05:39</td>
+            <td>26APR140645-45</td>
+            <td><span class="badge no">BUY_NO</span></td>
+            <td>8.4¢</td>
+            <td><span class="badge no">NO</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0840</td>
+        </tr>
+        <tr>
+            <td>04/14 04:55</td>
+            <td>26APR140600-00</td>
+            <td><span class="badge no">BUY_NO</span></td>
+            <td>5.5¢</td>
+            <td><span class="badge no">NO</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0550</td>
+        </tr>
+        <tr>
+            <td>04/14 04:42</td>
+            <td>26APR140545-45</td>
+            <td><span class="badge no">BUY_NO</span></td>
+            <td>2.5¢</td>
+            <td><span class="badge no">NO</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0250</td>
+        </tr>
+        <tr>
+            <td>04/14 04:25</td>
+            <td>26APR140530-30</td>
+            <td><span class="badge no">BUY_NO</span></td>
+            <td>6.3¢</td>
+            <td><span class="badge no">NO</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0630</td>
+        </tr>
+        <tr>
+            <td>04/14 03:53</td>
+            <td>26APR140500-00</td>
+            <td><span class="badge yes">BUY_YES</span></td>
+            <td>94.8¢</td>
+            <td><span class="badge yes">YES</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0520</td>
+        </tr>
+        <tr>
+            <td>04/14 03:38</td>
+            <td>26APR140445-45</td>
+            <td><span class="badge yes">BUY_YES</span></td>
+            <td>98.0¢</td>
+            <td><span class="badge yes">YES</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0200</td>
+        </tr>
+        <tr>
+            <td>04/14 02:38</td>
+            <td>26APR140345-45</td>
+            <td><span class="badge no">BUY_NO</span></td>
+            <td>4.0¢</td>
+            <td><span class="badge no">NO</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0400</td>
+        </tr>
+        <tr>
+            <td>04/14 02:23</td>
+            <td>26APR140330-30</td>
+            <td><span class="badge no">BUY_NO</span></td>
+            <td>13.0¢</td>
+            <td><span class="badge no">NO</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.1300</td>
+        </tr>
+        <tr>
+            <td>04/14 02:08</td>
+            <td>26APR140315-15</td>
+            <td><span class="badge yes">BUY_YES</span></td>
+            <td>82.5¢</td>
+            <td><span class="badge yes">YES</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.1750</td>
+        </tr>
+        <tr>
+            <td>04/14 01:53</td>
+            <td>26APR140300-00</td>
+            <td><span class="badge yes">BUY_YES</span></td>
+            <td>94.6¢</td>
+            <td><span class="badge yes">YES</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0540</td>
+        </tr>
+        <tr>
+            <td>04/14 01:23</td>
+            <td>26APR140230-30</td>
+            <td><span class="badge yes">BUY_YES</span></td>
+            <td>92.8¢</td>
+            <td><span class="badge yes">YES</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0720</td>
+        </tr>
+        <tr>
+            <td>04/14 01:08</td>
+            <td>26APR140215-15</td>
+            <td><span class="badge yes">BUY_YES</span></td>
+            <td>96.9¢</td>
+            <td><span class="badge yes">YES</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0310</td>
+        </tr>
+        <tr>
+            <td>04/14 00:55</td>
+            <td>26APR140200-00</td>
+            <td><span class="badge no">BUY_NO</span></td>
+            <td>3.5¢</td>
+            <td><span class="badge no">NO</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0350</td>
+        </tr>
+        <tr>
+            <td>04/13 23:38</td>
+            <td>26APR140045-45</td>
+            <td><span class="badge no">BUY_NO</span></td>
+            <td>6.4¢</td>
+            <td><span class="badge no">NO</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0640</td>
+        </tr>
+        <tr>
+            <td>04/13 22:38</td>
+            <td>26APR132345-45</td>
+            <td><span class="badge yes">BUY_YES</span></td>
+            <td>94.0¢</td>
+            <td><span class="badge yes">YES</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0600</td>
+        </tr>
+        <tr>
+            <td>04/13 22:23</td>
+            <td>26APR132330-30</td>
+            <td><span class="badge no">BUY_NO</span></td>
+            <td>7.8¢</td>
+            <td><span class="badge no">NO</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0780</td>
+        </tr>
+        <tr>
+            <td>04/13 22:12</td>
+            <td>26APR132315-15</td>
+            <td><span class="badge yes">BUY_YES</span></td>
+            <td>98.5¢</td>
+            <td><span class="badge yes">YES</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0150</td>
+        </tr>
+        <tr>
+            <td>04/13 21:54</td>
+            <td>26APR132300-00</td>
+            <td><span class="badge no">BUY_NO</span></td>
+            <td>5.8¢</td>
+            <td><span class="badge no">NO</span></td>
+            <td style="color:#00e5a0;font-weight:600">$+0.0580</td>
+        </tr>
+        <tr>
+            <td>04/13 21:38</td>
+            <td>26APR132245-45</td>
+            <td><span class="badge no">BUY_NO</span></td>
+            <td>10.5¢</td>
+            <td><span class="badge yes">YES</span></td>
+            <td style="color:#ff4d6d;font-weight:600">$-0.8950</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+<div style="text-align:center; font-family:var(--mono); font-size:10px;
+            color:var(--muted); padding: 16px; letter-spacing:0.1em;">
+  KALSHI 7-MIN MODEL · HOLD TO EXPIRY · 1 CONTRACT ·
+  USE KALSHI'S PROFIT_IN_DOLLARS FOR TAX RECORDS
+</div>
+
+</body>
+</html>
