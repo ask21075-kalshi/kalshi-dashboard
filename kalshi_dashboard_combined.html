@@ -67,7 +67,6 @@
   .badge.yes { background:rgba(0,229,160,0.15); color:var(--green); }
   .badge.no  { background:rgba(255,77,109,0.15); color:var(--red); }
   .badge.src-btc4m { background:rgba(56,189,248,0.12);  color:var(--blue);   border:1px solid rgba(56,189,248,0.2); }
-  .badge.src-btc15 { background:rgba(167,139,250,0.12); color:var(--purple); border:1px solid rgba(167,139,250,0.2); }
   .badge.src-eth15 { background:rgba(251,146,60,0.12);  color:var(--orange); border:1px solid rgba(251,146,60,0.2); }
 
   .pulse { display:inline-block; background:rgba(251,191,36,0.15); color:var(--yellow); padding:2px 8px; border-radius:4px; font-size:10px; font-weight:700; animation:pulse 1.5s ease-in-out infinite; }
@@ -92,7 +91,7 @@
   </div>
   <div class="updated">
     Auto-refreshes every 15 min
-    <em>Last update: 2026-04-19 16:08:28</em>
+    <em>Last update: 2026-04-19 16:12:35</em>
   </div>
 </header>
 
@@ -100,7 +99,7 @@
 <div class="grid-4" style="margin-bottom:24px">
   <div class="card">
     <div class="card-label">Kalshi Cash Balance</div>
-    <div class="card-value" style="color:var(--blue)">$1,451.90</div>
+    <div class="card-value" style="color:var(--blue)">$1,355.72</div>
     <div class="card-sub">authoritative &mdash; from API</div>
   </div>
   <div class="card">
@@ -148,13 +147,12 @@
 <div class="tabs">
   <button class="tab active" style="color:var(--green)"  onclick="showTab('combined',this)">&#x2295; Combined</button>
   <button class="tab"        style="color:var(--blue)"   onclick="showTab('btc4m',this)"   >&#x25c8; BTC 4-Min</button>
-  <button class="tab"        style="color:var(--purple)" onclick="showTab('btc15m',this)"  >&#x25c8; BTC 15-Min</button>
   <button class="tab"        style="color:var(--orange)" onclick="showTab('eth15m',this)"  >&#x25c8; ETH 15-Min</button>
 </div>
 
 <!-- COMBINED TAB -->
 <div id="tab-combined" class="tab-panel active">
-  
+  <div class="section" style="margin-bottom:24px"><h2 class="section-title">&#x26a1; All Live Positions</h2><table><thead><tr><th>Time</th><th>Contract</th><th>Signal</th><th>Entry</th><th>Min Left</th><th>Status</th></tr></thead><tbody><tr class='pending-row'><td>16:11:00</td><td>26APR191715-15</td><td><span class='badge yes'>BUY_YES</span></td><td>96&#x00a2;</td><td>4.0 min</td><td><span class='pulse'>LIVE</span></td></tr></tbody></table></div>
   <div class="section">
     <h2 class="section-title">&#x1f4c8; Combined Cumulative PnL &mdash; All Scripts</h2>
     <div class="chart-wrap"><svg class="sparkline" viewBox="0 0 600 130" preserveAspectRatio="none">
@@ -261,76 +259,6 @@
     </div>
 </div>
 
-<!-- BTC 15-MIN TAB -->
-<div id="tab-btc15m" class="tab-panel">
-  <div class="mini-strip">
-    <div class="mini-card"><div class="mini-label">Script</div><div class="mini-value" style="color:var(--purple)">BTC 15-Min</div></div>
-    <div class="mini-card"><div class="mini-label">CSV</div><div class="mini-value" style="font-size:11px;color:var(--muted)">live_trades.csv</div></div>
-    <div class="mini-card"><div class="mini-label">Daily Loss Cap</div><div class="mini-value" style="color:var(--muted)">$3.00</div></div>
-  </div>
-  
-    
-    <div class="grid-4" style="margin-bottom:16px">
-      <div class="card">
-        <div class="card-label">Total PnL</div>
-        <div class="card-value" style="color:#00e5a0">$+0.0000</div>
-        <div class="card-sub">0 settled trades</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Today's PnL</div>
-        <div class="card-value" style="color:#00e5a0">$+0.0000</div>
-        <div class="card-sub">0 trades today</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Win Rate (all time)</div>
-        <div class="card-value" style="color:var(--blue)">0.0%</div>
-        <div class="card-sub">0W / 0L</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Today Win Rate</div>
-        <div class="card-value" style="color:var(--blue)">0.0%</div>
-        <div class="card-sub">0W / 0L</div>
-      </div>
-    </div>
-    <div class="grid-4" style="margin-bottom:16px">
-      <div class="card">
-        <div class="card-label">Best Trade</div>
-        <div class="card-value" style="color:var(--green)">$+0.0000</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Worst Trade</div>
-        <div class="card-value" style="color:var(--red)">$+0.0000</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Daily Loss Cap</div>
-        <div class="card-value" style="color:#64748b">$0.00 / $3.00</div>
-        <div class="card-sub">
-          <div style="background:#1e2d40;border-radius:4px;height:4px;margin-top:6px;overflow:hidden">
-            <div style="background:#64748b;height:100%;width:0.0%;border-radius:4px"></div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-label">Live Positions</div>
-        <div class="card-value" style="color:var(--muted)">0</div>
-        <div class="card-sub">awaiting settlement</div>
-      </div>
-    </div>
-    <div class="section" style="margin-bottom:16px">
-      <h2 class="section-title">&#x1f4c8; Cumulative PnL &mdash; BTC 15-Min</h2>
-      <div class="chart-wrap"><p style="color:#64748b;font-size:12px;padding:20px 0">No trade data yet.</p></div>
-    </div>
-    
-    
-    <div class="section">
-      <h2 class="section-title">&#x1f4cb; Recent Trades (last 20) &mdash; BTC 15-Min</h2>
-      <table>
-        <thead><tr><th>Time</th><th>Contract</th><th>Signal</th><th>Entry</th><th>Result</th><th>PnL</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-</div>
-
 <!-- ETH 15-MIN TAB -->
 <div id="tab-eth15m" class="tab-panel">
   <div class="mini-strip">
@@ -385,7 +313,7 @@
       </div>
       <div class="card">
         <div class="card-label">Live Positions</div>
-        <div class="card-value" style="color:var(--muted)">0</div>
+        <div class="card-value" style="color:var(--yellow)">1</div>
         <div class="card-sub">awaiting settlement</div>
       </div>
     </div>
@@ -404,8 +332,8 @@
       <path d="M 0.0,107.5 L 27.3,107.4 L 54.5,110.0 L 81.8,109.9 L 109.1,109.8 L 136.4,109.8 L 163.6,106.3 L 190.9,96.3 L 218.2,93.6 L 245.5,88.2 L 272.7,85.5 L 300.0,77.4 L 327.3,69.3 L 354.5,61.2 L 381.8,58.5 L 409.1,53.1 L 436.4,50.4 L 463.6,37.0 L 490.9,34.3 L 518.2,28.9 L 545.5,26.2 L 572.7,18.1 L 600.0,10.0" fill="none" stroke="#fb923c" stroke-width="2" stroke-linejoin="round"/>
     </svg></div>
     </div>
-    <div class="section" style="margin-bottom:16px;border-color:rgba(251,191,36,0.3)"><h2 class="section-title">&#x26a1; Active Positions — lock file &middot; 2026-04-19T15:45</h2><div style="font-family:var(--mono);font-size:12px;color:var(--yellow);padding:4px 0">&#x26a1; 26APR182300-00</div></div>
-    
+    <div class="section" style="margin-bottom:16px;border-color:rgba(251,191,36,0.3)"><h2 class="section-title">&#x26a1; Active Positions — lock file &middot; 2026-04-19T16:11</h2><div style="font-family:var(--mono);font-size:12px;color:var(--yellow);padding:4px 0">&#x26a1; 26APR191715-15</div><div style="font-family:var(--mono);font-size:12px;color:var(--yellow);padding:4px 0">&#x26a1; 26APR182300-00</div></div>
+    <div class="section" style="margin-bottom:16px"><h2 class="section-title">&#x23f3; Pending Trades (CSV)</h2><table><thead><tr><th>Time</th><th>Contract</th><th>Signal</th><th>Entry</th><th>Min Left</th><th>Status</th></tr></thead><tbody><tr class='pending-row'><td>16:11:00</td><td>26APR191715-15</td><td><span class='badge yes'>BUY_YES</span></td><td>96&#x00a2;</td><td>4.0 min</td><td><span class='pulse'>LIVE</span></td></tr></tbody></table></div>
     <div class="section">
       <h2 class="section-title">&#x1f4cb; Recent Trades (last 20) &mdash; ETH 15-Min</h2>
       <table>
