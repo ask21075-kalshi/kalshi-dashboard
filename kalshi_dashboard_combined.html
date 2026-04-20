@@ -96,7 +96,7 @@
   </div>
   <div class="updated">
     Auto-refreshes every 15 min
-    <em>Last update: 2026-04-19 21:01:04</em>
+    <em>Last update: 2026-04-19 21:01:44</em>
   </div>
 </header>
 
@@ -153,7 +153,7 @@
   <button class="tab active" style="color:var(--green)"  onclick="showTab('combined',this)">&#x2295; Combined</button>
   <button class="tab"        style="color:var(--blue)"   onclick="showTab('btc4m',this)"   >&#x25c8; BTC 4-Min</button>
   <button class="tab"        style="color:var(--orange)" onclick="showTab('eth15m',this)"  >&#x25c8; ETH 15-Min</button>
-  
+  <button class="tab" style="color:#a78bfa" onclick="showTab('sol15m',this)">&#x25c8; SOL 15-Min</button>
   
   
   
@@ -354,6 +354,78 @@
 </div>
 
 
+<!-- SOL 15-Min TAB -->
+<div id="tab-sol15m" class="tab-panel">
+  <div class="mini-strip">
+    <div class="mini-card"><div class="mini-label">Script</div><div class="mini-value" style="color:#a78bfa">SOL 15-Min</div></div>
+    <div class="mini-card"><div class="mini-label">CSV</div><div class="mini-value" style="font-size:11px;color:var(--muted)">live_trades_sol15m.csv</div></div>
+    <div class="mini-card"><div class="mini-label">State JSON</div><div class="mini-value" style="font-size:11px;color:var(--muted)">live_trader_sol15m_state.json</div></div>
+    <div class="mini-card"><div class="mini-label">Lock File</div><div class="mini-value" style="font-size:11px;color:var(--muted)">active_positions_sol15m.json</div></div>
+    <div class="mini-card"><div class="mini-label">Daily Loss Cap</div><div class="mini-value" style="color:var(--muted)">$200.00</div></div>
+    <div class="mini-card"><div class="mini-label">Contracts</div><div class="mini-value" style="color:var(--muted)">100</div></div>
+  </div>
+  
+    
+    <div class="grid-4" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-label">Total PnL</div>
+        <div class="card-value" style="color:#00e5a0">$+0.0000</div>
+        <div class="card-sub">0 settled trades</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Today's PnL</div>
+        <div class="card-value" style="color:#00e5a0">$+0.0000</div>
+        <div class="card-sub">0 trades today</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Win Rate (all time)</div>
+        <div class="card-value" style="color:var(--blue)">0.0%</div>
+        <div class="card-sub">0W / 0L</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Today Win Rate</div>
+        <div class="card-value" style="color:var(--blue)">0.0%</div>
+        <div class="card-sub">0W / 0L</div>
+      </div>
+    </div>
+    <div class="grid-4" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-label">Best Trade</div>
+        <div class="card-value" style="color:var(--green)">$+0.0000</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Worst Trade</div>
+        <div class="card-value" style="color:var(--red)">$+0.0000</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Daily Loss Cap</div>
+        <div class="card-value" style="color:#64748b">$0.00 / $200.00</div>
+        <div class="card-sub">
+          <div style="background:#1e2d40;border-radius:4px;height:4px;margin-top:6px;overflow:hidden">
+            <div style="background:#64748b;height:100%;width:0.0%;border-radius:4px"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Live Positions</div>
+        <div class="card-value" style="color:var(--muted)">0</div>
+        <div class="card-sub">awaiting settlement</div>
+      </div>
+    </div>
+    <div class="section" style="margin-bottom:16px">
+      <h2 class="section-title">&#x1f4c8; Cumulative PnL &mdash; SOL 15-Min</h2>
+      <div class="chart-wrap"><p style="color:#64748b;font-size:12px;padding:20px 0">No trade data yet.</p></div>
+    </div>
+    
+    
+    <div class="section">
+      <h2 class="section-title">&#x1f4cb; Recent Trades (last 20) &mdash; SOL 15-Min</h2>
+      <table>
+        <thead><tr><th>Time</th><th>Contract</th><th>Signal</th><th>Entry</th><th>Result</th><th>PnL</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+</div>
 
 <div style="text-align:center;font-family:var(--mono);font-size:10px;color:var(--muted);padding:20px;letter-spacing:0.1em;">
   KALSHI BTC + ETH + SOL + XRP + HYPE + DOGE + BNB &middot; HOLD TO EXPIRY &middot; USE KALSHI'S PROFIT_IN_DOLLARS FOR TAX RECORDS
