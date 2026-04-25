@@ -96,7 +96,7 @@
   </div>
   <div class="updated">
     Auto-refreshes every 15 min
-    <em>Last update: 2026-04-24 19:01:05</em>
+    <em>Last update: 2026-04-24 19:16:01</em>
   </div>
 </header>
 
@@ -104,17 +104,17 @@
 <div class="grid-4" style="margin-bottom:24px">
   <div class="card">
     <div class="card-label">Kalshi Cash Balance</div>
-    <div class="card-value" style="color:var(--blue)">$1,492.44</div>
+    <div class="card-value" style="color:var(--blue)">$1,492.53</div>
     <div class="card-sub">authoritative &mdash; from API</div>
   </div>
   <div class="card">
     <div class="card-label">Kalshi Net PnL Today</div>
-    <div class="card-value" style="color:#00e5a0">$-322.2000</div>
+    <div class="card-value" style="color:#00e5a0">$-322.1100</div>
     <div class="card-sub">use this for tax records</div>
   </div>
   <div class="card">
     <div class="card-label">Log vs Kalshi Gap</div>
-    <div class="card-value" style="color:var(--yellow)">$-322.2000</div>
+    <div class="card-value" style="color:var(--yellow)">$-322.1100</div>
     <div class="card-sub">&#x26a0; check reconciliation log</div>
   </div>
   <div class="card">
@@ -128,23 +128,23 @@
 <div class="grid-4" style="margin-bottom:24px">
   <div class="card">
     <div class="card-label">Combined Total PnL</div>
-    <div class="card-value" style="color:#00e5a0">$+0.0000</div>
-    <div class="card-sub">0 settled trades (all scripts)</div>
+    <div class="card-value" style="color:#00e5a0">$+0.1000</div>
+    <div class="card-sub">1 settled trades (all scripts)</div>
   </div>
   <div class="card">
     <div class="card-label">Combined Today PnL</div>
-    <div class="card-value" style="color:#00e5a0">$+0.0000</div>
-    <div class="card-sub">0 trades today</div>
+    <div class="card-value" style="color:#00e5a0">$+0.1000</div>
+    <div class="card-sub">1 trades today</div>
   </div>
   <div class="card">
     <div class="card-label">Combined Win Rate</div>
-    <div class="card-value" style="color:var(--blue)">0.0%</div>
-    <div class="card-sub">0W / 0L all time</div>
+    <div class="card-value" style="color:var(--blue)">100.0%</div>
+    <div class="card-sub">1W / 0L all time</div>
   </div>
   <div class="card">
     <div class="card-label">Today Win Rate</div>
-    <div class="card-value" style="color:var(--blue)">0.0%</div>
-    <div class="card-sub">0W / 0L</div>
+    <div class="card-value" style="color:var(--blue)">100.0%</div>
+    <div class="card-sub">1W / 0L</div>
   </div>
 </div>
 
@@ -165,13 +165,24 @@
   
   <div class="section">
     <h2 class="section-title">&#x1f4c8; Combined Cumulative PnL &mdash; All Scripts</h2>
-    <div class="chart-wrap"><p style="color:#64748b;font-size:12px;padding:20px 0">No trade data yet.</p></div>
+    <div class="chart-wrap"><svg class="sparkline" viewBox="0 0 600 130" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="gM" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#00e5a0" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#00e5a0" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <line x1="0" y1="120.0" x2="600" y2="120.0"
+            stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="4,4"/>
+      <path d="M 0.0,110.0 L 600,130 L 0,130 Z" fill="url(#gM)"/>
+      <path d="M 0.0,110.0" fill="none" stroke="#00e5a0" stroke-width="2" stroke-linejoin="round"/>
+    </svg></div>
   </div>
   <div class="section">
     <h2 class="section-title">&#x1f4cb; All Recent Trades (last 40, all scripts)</h2>
     <table>
       <thead><tr><th>Time</th><th>Script &middot; Contract</th><th>Signal</th><th>Entry</th><th>Result</th><th>PnL</th></tr></thead>
-      <tbody></tbody>
+      <tbody><tr><td>04/24 19:13</td><td><span class="badge src-bnb15">BNB15</span> 26APR242015-15</td><td><span class='badge no'>BUY_NO</span></td><td>1&#x00a2; x10</td><td><span class='badge no'>NO</span></td><td style='color:#00e5a0;font-weight:600'>$+0.1000</td></tr></tbody>
     </table>
   </div>
 </div>
@@ -620,37 +631,37 @@
     <div class="mini-card"><div class="mini-label">Contracts</div><div class="mini-value" style="color:var(--muted)">100</div></div>
   </div>
   
-    <div style="display:flex;gap:24px;margin-bottom:20px;font-family:var(--mono);font-size:11px;color:var(--muted);flex-wrap:wrap"><span>STATE &middot; 2026-04-24</span><span>State PnL: <span style="color:#00e5a0">$+0.00</span></span><span>Trades today: 0</span><span>Wins: 0 &nbsp; Losses: 0</span><span>Consec losses: <span style="color:#64748b">0</span></span></div>
+    <div style="display:flex;gap:24px;margin-bottom:20px;font-family:var(--mono);font-size:11px;color:var(--muted);flex-wrap:wrap"><span>STATE &middot; 2026-04-24</span><span>State PnL: <span style="color:#00e5a0">$+0.10</span></span><span>Trades today: 1</span><span>Wins: 1 &nbsp; Losses: 0</span><span>Consec losses: <span style="color:#64748b">0</span></span></div>
     <div class="grid-4" style="margin-bottom:16px">
       <div class="card">
         <div class="card-label">Total PnL</div>
-        <div class="card-value" style="color:#00e5a0">$+0.0000</div>
-        <div class="card-sub">0 settled trades</div>
+        <div class="card-value" style="color:#00e5a0">$+0.1000</div>
+        <div class="card-sub">1 settled trades</div>
       </div>
       <div class="card">
         <div class="card-label">Today's PnL</div>
-        <div class="card-value" style="color:#00e5a0">$+0.0000</div>
-        <div class="card-sub">0 trades today</div>
+        <div class="card-value" style="color:#00e5a0">$+0.1000</div>
+        <div class="card-sub">1 trades today</div>
       </div>
       <div class="card">
         <div class="card-label">Win Rate (all time)</div>
-        <div class="card-value" style="color:var(--blue)">0.0%</div>
-        <div class="card-sub">0W / 0L</div>
+        <div class="card-value" style="color:var(--blue)">100.0%</div>
+        <div class="card-sub">1W / 0L</div>
       </div>
       <div class="card">
         <div class="card-label">Today Win Rate</div>
-        <div class="card-value" style="color:var(--blue)">0.0%</div>
-        <div class="card-sub">0W / 0L</div>
+        <div class="card-value" style="color:var(--blue)">100.0%</div>
+        <div class="card-sub">1W / 0L</div>
       </div>
     </div>
     <div class="grid-4" style="margin-bottom:16px">
       <div class="card">
         <div class="card-label">Best Trade</div>
-        <div class="card-value" style="color:var(--green)">$+0.0000</div>
+        <div class="card-value" style="color:var(--green)">$+0.1000</div>
       </div>
       <div class="card">
         <div class="card-label">Worst Trade</div>
-        <div class="card-value" style="color:var(--red)">$+0.0000</div>
+        <div class="card-value" style="color:var(--red)">$+0.1000</div>
       </div>
       <div class="card">
         <div class="card-label">Daily Loss Cap</div>
@@ -669,7 +680,18 @@
     </div>
     <div class="section" style="margin-bottom:16px">
       <h2 class="section-title">&#x1f4c8; Cumulative PnL &mdash; BNB 15-Min</h2>
-      <div class="chart-wrap"><p style="color:#64748b;font-size:12px;padding:20px 0">No trade data yet.</p></div>
+      <div class="chart-wrap"><svg class="sparkline" viewBox="0 0 600 130" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="gH" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <line x1="0" y1="120.0" x2="600" y2="120.0"
+            stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="4,4"/>
+      <path d="M 0.0,110.0 L 600,130 L 0,130 Z" fill="url(#gH)"/>
+      <path d="M 0.0,110.0" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linejoin="round"/>
+    </svg></div>
     </div>
     
     
@@ -677,7 +699,7 @@
       <h2 class="section-title">&#x1f4cb; Recent Trades (last 20) &mdash; BNB 15-Min</h2>
       <table>
         <thead><tr><th>Time</th><th>Contract</th><th>Signal</th><th>Entry</th><th>Result</th><th>PnL</th></tr></thead>
-        <tbody></tbody>
+        <tbody><tr><td>04/24 19:13</td><td>26APR242015-15</td><td><span class='badge no'>BUY_NO</span></td><td>1&#x00a2; x10</td><td><span class='badge no'>NO</span></td><td style='color:#00e5a0;font-weight:600'>$+0.1000</td></tr></tbody>
       </table>
     </div>
 </div>
