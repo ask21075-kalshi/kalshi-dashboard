@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="900">
+<title>Momentum Dashboard — Kalshi ETH 15m</title>
+<style>
+  :root {
+    --bg:     #f5f0e8;
+    --paper:  #fdfaf4;
+    --ink:    #1a1510;
+    --muted:  #6b5f4e;
+    --rule:   #d4c9b0;
+    --green:  #2d5a27;
+    --red:    #8b1a1a;
+    --blue:   #1a3a5c;
+    --mono:   'Courier Prime', 'Courier New', monospace;
+    --serif:  Georgia, serif;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    background: var(--bg);
+    background-image: repeating-linear-gradient(
+      transparent, transparent 27px, var(--rule) 27px, var(--rule) 28px);
+    font-family: var(--serif); color: var(--ink);
+    min-height:100vh; padding:30px 16px;
+  }
+  .page {
+    max-width:960px; margin:0 auto;
+    background:var(--paper);
+    box-shadow:2px 2px 8px rgba(0,0,0,.15),6px 6px 20px rgba(0,0,0,.08);
+    padding:48px 56px;
+  }
+  h1 { font-family:var(--mono); font-size:11px; letter-spacing:.3em;
+        text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+  h2 { font-size:26px; font-weight:700; margin-bottom:4px; }
+  .subtitle { font-style:italic; color:var(--muted); font-size:13px; margin-bottom:32px; }
+  .grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
+  .stat {
+    border:1px solid var(--rule); padding:16px 18px;
+    background:rgba(255,255,255,.5);
+  }
+  .stat .lbl { font-family:var(--mono); font-size:10px; letter-spacing:.12em;
+                text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+  .stat .val { font-size:26px; font-weight:700; line-height:1; margin-bottom:4px; }
+  .stat .sub { font-size:11px; color:var(--muted); }
+  section { margin-bottom:32px; }
+  section h3 { font-family:var(--mono); font-size:10px; letter-spacing:.2em;
+                text-transform:uppercase; color:var(--muted);
+                border-bottom:1px solid var(--rule); padding-bottom:8px; margin-bottom:14px; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+        color:var(--muted); text-align:left; padding:6px 8px;
+        border-bottom:2px solid var(--rule); }
+  td { padding:6px 8px; border-bottom:1px solid var(--rule); vertical-align:middle; }
+  tr:last-child td { border-bottom:none; }
+  .compare {
+    background:rgba(139,69,19,.04); border:1px solid var(--rule);
+    padding:14px 18px; font-size:12px;
+  }
+  .compare .row { display:flex; justify-content:space-between;
+                   padding:4px 0; border-bottom:1px solid var(--rule); }
+  .compare .row:last-child { border-bottom:none; }
+  .footer { margin-top:40px; text-align:center; font-family:var(--mono);
+             font-size:10px; color:var(--muted); letter-spacing:.1em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Kalshi ETH 15-Minute Markets</h1>
+  <h2>Momentum Strategy — Live Dashboard</h2>
+  <div class="subtitle">BUY_NO only · ≥35¢ move · ~7 min entry · 100 contracts · auto-refreshes every 15 min</div>
+
+  <div style="background:rgba(45,90,39,.1);border-left:4px solid #2d5a27;padding:10px 16px;margin-bottom:20px;font-size:13px;color:#2d5a27">✓ Running — 0 trade(s) in flight</div>
+
+  <div class="grid4">
+    <div class="stat">
+      <div class="lbl">Total Live PnL</div>
+      <div class="val" style="color:#2d6a27">$+0.00</div>
+      <div class="sub">0 settled trades</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Win Rate</div>
+      <div class="val" style="color:#8b1a1a">0.0%</div>
+      <div class="sub">0W / 0L</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Avg Slippage vs Paper</div>
+      <div class="val" style="color:#8b1a1a">—</div>
+      <div class="sub"></div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Daily PnL (today)</div>
+      <div class="val" style="color:#2d6a27">$+0.00</div>
+      <div class="sub">0 trades · cap $200</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="stat">
+      <div class="lbl">Avg Win</div>
+      <div class="val" style="color:#2d5a27">$+0.00</div>
+      <div class="sub">per settled winning trade</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Avg Loss</div>
+      <div class="val" style="color:#8b1a1a">$+0.00</div>
+      <div class="sub">per settled losing trade</div>
+    </div>
+  </div>
+
+  <section>
+    <h3>Live vs Paper Comparison</h3>
+    <div class="compare">
+      <div class="row">
+        <span style="color:var(--muted)">Paper PnL (all signals, 6 days)</span>
+        <span style="color:#2d5a27;font-weight:600">$+0.00 &nbsp; 0% win &nbsp; 0 trades</span>
+      </div>
+      <div class="row">
+        <span style="color:var(--muted)">Live PnL (filtered, this session)</span>
+        <span style="font-weight:600">$+0.00 &nbsp; 0% win &nbsp; 0 trades</span>
+      </div>
+      <div class="row">
+        <span style="color:var(--muted)">Avg slippage (live fill vs paper mid)</span>
+        <span style="color:#8b1a1a;font-weight:600">— per trade</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Daily Breakdown</h3>
+    <table>
+      <tr>
+        <th>Date</th><th style="text-align:center">Trades</th>
+        <th style="text-align:center">Wins</th><th style="text-align:center">Losses</th>
+        <th style="text-align:right">Day PnL</th><th style="text-align:right">Cumulative</th>
+      </tr>
+      <tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px">No settled trades yet</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h3>Recent Trades (last 20)</h3>
+    <table>
+      <tr>
+        <th>Time</th><th>Contract</th><th>Signal</th>
+        <th>Live Fill</th><th>Paper Mid</th><th>Slippage</th>
+        <th>Move</th><th>Result</th><th>PnL</th>
+      </tr>
+      <tr><td colspan="9" style="color:var(--muted);text-align:center;padding:20px">No trades yet</td></tr>
+    </table>
+  </section>
+
+  <div class="footer">
+    Generated 2026-05-02 15:47:00 &nbsp;·&nbsp; ETH 15-Min Momentum &nbsp;·&nbsp; BUY_NO only · ≥35¢ threshold
+  </div>
+
+</div>
+</body>
+</html>
