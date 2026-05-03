@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="refresh" content="900">
+<title>DOGE Momentum Dashboard</title>
+<style>
+  :root {
+    --bg:     #0a1628;
+    --card:   #0f2040;
+    --border: #1e3a5f;
+    --text:   #e2e8f0;
+    --muted:  #64748b;
+    --green:  #00e5a0;
+    --red:    #ff4d6d;
+    --blue:   #38bdf8;
+    --yellow: #fbbf24;
+    --mono:   'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    --accent: #fbbf24;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; padding: 24px; }
+  h1 { font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+  .subtitle { color: var(--muted); font-size: 12px; font-family: var(--mono); margin-bottom: 24px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media(max-width:900px) { .grid-4 { grid-template-columns: repeat(2,1fr); } }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .card-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+  .card-value { font-size: 24px; font-weight: 700; font-family: var(--mono); }
+  .card-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .section { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; }
+  .section-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--border); font-weight: 500; }
+  td { padding: 7px 8px; border-bottom: 1px solid rgba(30,58,95,.5); }
+  tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: .04em; }
+  .badge.yes { background: rgba(0,229,160,.15); color: var(--green); }
+  .badge.no  { background: rgba(255,77,109,.15); color: var(--red); }
+  .pending-row td { color: var(--yellow); }
+  .pulse { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; background: rgba(251,191,36,.15); color: var(--yellow); animation: pulse 1.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
+  .sparkline { width: 100%; height: 80px; display: block; margin-top: 8px; }
+  .alert { border-radius: 8px; padding: 10px 16px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+  .alert { background: rgba(251,191,36,.1); border: 1px solid rgba(251,191,36,.3); color: var(--yellow); }
+  .alert.kill { background: rgba(255,77,109,.1); border: 1px solid rgba(255,77,109,.3); color: var(--red); }
+  .header-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<div class="header-row">
+  <div>
+    <h1>&#x1F436; DOGE Momentum Trader</h1>
+    <div class="subtitle">KXDOGE15M &nbsp;&#x2022;&nbsp; signal: ≥30¢ move over 9→7 min &nbsp;&#x2022;&nbsp; updated 2026-05-03 07:13:09 &nbsp;&#x2022;&nbsp; auto-refresh 15 min</div>
+  </div>
+</div>
+
+
+<div style="display:flex;gap:24px;margin-bottom:20px;font-family:var(--mono);font-size:11px;color:var(--muted);flex-wrap:wrap"><span>STATE &middot; 2026-05-03</span><span>State PnL: <span style="color:#00e5a0">$+0.00</span></span><span>Trades today: 0</span><span>Wins: 0 &nbsp; Losses: 0</span><span>Consec losses: <span style="color:#64748b">0</span></span></div>
+
+<div class="grid-4" style="margin-bottom:16px">
+  <div class="card">
+    <div class="card-label">Total PnL</div>
+    <div class="card-value" style="color:#00e5a0">$+0.0000</div>
+    <div class="card-sub">0 settled trades</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Today's PnL</div>
+    <div class="card-value" style="color:#00e5a0">$+0.0000</div>
+    <div class="card-sub">0 trades today</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Win Rate (all time)</div>
+    <div class="card-value" style="color:var(--blue)">0.0%</div>
+    <div class="card-sub">0W / 0L</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Today Win Rate</div>
+    <div class="card-value" style="color:var(--blue)">0.0%</div>
+    <div class="card-sub">0W / 0L &nbsp; Daily cap: $0.00/$200</div>
+  </div>
+</div>
+
+<div class="section" style="margin-bottom:16px">
+  <h2 class="section-title">Cumulative PnL — all trades</h2>
+  <p style="color:#64748b;font-size:12px;padding:20px 0">No trade data yet.</p>
+</div>
+
+
+    <div class="section" style="margin-bottom:16px">
+      <h2 class="section-title">Direction Breakdown</h2>
+      <div class="grid-4">
+        <div class="card">
+          <div class="card-label">BUY_YES Trades</div>
+          <div class="card-value" style="color:var(--green)">0</div>
+          <div class="card-sub">0W / 0L &nbsp; 0% WR</div>
+        </div>
+        <div class="card">
+          <div class="card-label">BUY_NO Trades</div>
+          <div class="card-value" style="color:var(--red)">0</div>
+          <div class="card-sub">0W / 0L &nbsp; 0% WR</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Avg Slippage</div>
+          <div class="card-value" style="color:#00e5a0">+0.00¢</div>
+          <div class="card-sub">live fill vs paper mid</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Best / Worst Trade</div>
+          <div class="card-value" style="color:var(--green);font-size:18px">$+0.00</div>
+          <div class="card-sub" style="color:var(--red)">$+0.00</div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="section" style="margin-bottom:16px">
+      <h2 class="section-title">Daily Breakdown</h2>
+      <table><thead><tr><th>Date</th><th>Trades</th><th>Win Rate</th><th>PnL</th></tr></thead>
+      <tbody><tr><td colspan="4" style="color:#64748b">No settled trades yet</td></tr></tbody></table>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">Recent Trades (last 20)</h2>
+      <table><thead><tr>
+        <th>Time</th><th>Contract</th><th>Signal</th>
+        <th>Entry (slip)</th><th>Move</th><th>Result</th><th>PnL</th>
+      </tr></thead>
+      <tbody><tr><td colspan="7" style="color:#64748b">No settled trades yet</td></tr></tbody>
+      </table>
+    </div>
+
+</body>
+</html>
