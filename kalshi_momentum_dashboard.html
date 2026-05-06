@@ -15,15 +15,16 @@
     --green:  #2d5a27;
     --red:    #8b1a1a;
     --blue:   #1a3a5c;
-    --mono:   'Courier Prime', 'Courier New', monospace;
-    --serif:  Georgia, serif;
+    --mono:   'Inter', 'Segoe UI', Arial, sans-serif;
+    --serif:  'Inter', 'Segoe UI', Arial, sans-serif;
+    --sans:   'Inter', 'Segoe UI', Arial, sans-serif;
   }
   * { box-sizing:border-box; margin:0; padding:0; }
   body {
     background: var(--bg);
     background-image: repeating-linear-gradient(
       transparent, transparent 27px, var(--rule) 27px, var(--rule) 28px);
-    font-family: var(--serif); color: var(--ink);
+    font-family: var(--sans); color: var(--ink);
     min-height:100vh; padding:30px 16px;
   }
   .page {
@@ -66,6 +67,7 @@
   .footer { margin-top:40px; text-align:center; font-family:var(--mono);
              font-size:10px; color:var(--muted); letter-spacing:.1em; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 <div class="page">
@@ -94,8 +96,8 @@
     </div>
     <div class="stat">
       <div class="lbl">Daily PnL (today)</div>
-      <div class="val" style="color:#2d6a27">$+1540.00</div>
-      <div class="sub">43 trades · cap $200</div>
+      <div class="val" style="color:#2d6a27">$+510.00</div>
+      <div class="sub">17 trades today</div>
     </div>
   </div>
 
@@ -136,38 +138,52 @@
       <tr>
         <th>Date</th><th style="text-align:center">Trades</th>
         <th style="text-align:center">Wins</th><th style="text-align:center">Losses</th>
+        <th style="text-align:center">Win Rate</th>
+        <th style="text-align:right">Win Total</th><th style="text-align:right">Loss Total</th>
         <th style="text-align:right">Day PnL</th><th style="text-align:right">Cumulative</th>
       </tr>
       
         <tr>
-          <td style="font-family:monospace;font-size:12px">2026-05-02</td>
+          <td style="font-size:12px">2026-05-02</td>
           <td style="text-align:center">4</td>
-          <td style="text-align:center;color:#2d5a27">4W</td>
-          <td style="text-align:center;color:#8b1a1a">0L</td>
+          <td style="text-align:center;color:#2d5a27">4</td>
+          <td style="text-align:center;color:#8b1a1a">0</td>
+          <td style="text-align:center;color:#2d5a27">100%</td>
+          <td style="text-align:right;color:#2d5a27;font-size:12px">$+207.00</td>
+          <td style="text-align:right;color:#8b1a1a;font-size:12px">$+0.00</td>
           <td style="text-align:right"><span style="color:#2d6a27;font-weight:600">$+207.00</span></td>
           <td style="text-align:right"><span style="color:#2d6a27;font-weight:600">$+207.00</span></td>
         </tr>
         <tr>
-          <td style="font-family:monospace;font-size:12px">2026-05-03</td>
+          <td style="font-size:12px">2026-05-03</td>
           <td style="text-align:center">9</td>
-          <td style="text-align:center;color:#2d5a27">7W</td>
-          <td style="text-align:center;color:#8b1a1a">2L</td>
+          <td style="text-align:center;color:#2d5a27">7</td>
+          <td style="text-align:center;color:#8b1a1a">2</td>
+          <td style="text-align:center;color:#2d5a27">78%</td>
+          <td style="text-align:right;color:#2d5a27;font-size:12px">$+389.00</td>
+          <td style="text-align:right;color:#8b1a1a;font-size:12px">$-174.00</td>
           <td style="text-align:right"><span style="color:#2d6a27;font-weight:600">$+215.00</span></td>
           <td style="text-align:right"><span style="color:#2d6a27;font-weight:600">$+422.00</span></td>
         </tr>
         <tr>
-          <td style="font-family:monospace;font-size:12px">2026-05-04</td>
+          <td style="font-size:12px">2026-05-04</td>
           <td style="text-align:center">13</td>
-          <td style="text-align:center;color:#2d5a27">12W</td>
-          <td style="text-align:center;color:#8b1a1a">1L</td>
+          <td style="text-align:center;color:#2d5a27">12</td>
+          <td style="text-align:center;color:#8b1a1a">1</td>
+          <td style="text-align:center;color:#2d5a27">92%</td>
+          <td style="text-align:right;color:#2d5a27;font-size:12px">$+686.00</td>
+          <td style="text-align:right;color:#8b1a1a;font-size:12px">$-78.00</td>
           <td style="text-align:right"><span style="color:#2d6a27;font-weight:600">$+608.00</span></td>
           <td style="text-align:right"><span style="color:#2d6a27;font-weight:600">$+1030.00</span></td>
         </tr>
         <tr>
-          <td style="font-family:monospace;font-size:12px">2026-05-05</td>
+          <td style="font-size:12px">2026-05-05</td>
           <td style="text-align:center">17</td>
-          <td style="text-align:center;color:#2d5a27">14W</td>
-          <td style="text-align:center;color:#8b1a1a">3L</td>
+          <td style="text-align:center;color:#2d5a27">14</td>
+          <td style="text-align:center;color:#8b1a1a">3</td>
+          <td style="text-align:center;color:#2d5a27">82%</td>
+          <td style="text-align:right;color:#2d5a27;font-size:12px">$+712.00</td>
+          <td style="text-align:right;color:#8b1a1a;font-size:12px">$-202.00</td>
           <td style="text-align:right"><span style="color:#2d6a27;font-weight:600">$+510.00</span></td>
           <td style="text-align:right"><span style="color:#2d6a27;font-weight:600">$+1540.00</span></td>
         </tr>
@@ -406,8 +422,72 @@
     </table>
   </section>
 
+  <section>
+    <h3>PnL by Move Distance</h3>
+    <div style="position:relative;height:260px;margin-bottom:8px">
+      <canvas id="moveChart"></canvas>
+    </div>
+    <p style="font-size:11px;color:var(--muted);text-align:center">Total PnL ($) per move-distance bucket · 43 settled trades</p>
+    <script>
+    (function(){
+      const labels  = ["35–39¢", "40–49¢", "50–59¢", "60–69¢", "70–79¢", "80¢+"];
+      const pnls    = [1568.0, -78.0, 50.0, 0, 0, 0];
+      const counts  = [40, 1, 2, 0, 0, 0];
+      const colors  = ["#2d5a27","#8b1a1a","#2d5a27","#2d5a27","#2d5a27","#2d5a27"];
+      const borderC = colors.map(c => c);
+      new Chart(document.getElementById('moveChart'), {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Total PnL ($)',
+            data: pnls,
+            backgroundColor: colors.map(c => c + '33'),
+            borderColor: colors,
+            borderWidth: 2,
+            borderRadius: 3,
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => {
+                  const i = ctx.dataIndex;
+                  return ` ${ctx.parsed.x >= 0 ? '+' : ''}${ctx.parsed.x.toFixed(2)}  (${counts[i]} trades)`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(180,160,130,.2)' },
+              ticks: {
+                font: { family: "'Inter','Segoe UI',Arial,sans-serif", size: 11 },
+                color: '#6b5f4e',
+                callback: v => (v >= 0 ? '+' : '') + '$' + v.toFixed(2)
+              }
+            },
+            y: {
+              grid: { display: false },
+              ticks: {
+                font: { family: "'Inter','Segoe UI',Arial,sans-serif", size: 12 },
+                color: '#1a1510'
+              }
+            }
+          }
+        }
+      });
+    })();
+    </script>
+  </section>
+
   <div class="footer">
-    Generated 2026-05-05 20:32:00 &nbsp;·&nbsp; ETH 15-Min Momentum &nbsp;·&nbsp; BUY_NO only · ≥35¢ threshold
+    Generated 2026-05-05 20:38:04 &nbsp;·&nbsp; ETH 15-Min Momentum &nbsp;·&nbsp; BUY_NO only · ≥35¢ threshold
   </div>
 
 </div>
