@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="900">
+<title>Momentum Dashboard — Kalshi BTC 15m</title>
+<style>
+  :root {
+    --bg:     #f5f0e8;
+    --paper:  #fdfaf4;
+    --ink:    #1a1510;
+    --muted:  #6b5f4e;
+    --rule:   #d4c9b0;
+    --green:  #2d5a27;
+    --red:    #8b1a1a;
+    --blue:   #1a3a5c;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    background: var(--bg);
+    background-image: repeating-linear-gradient(
+      transparent, transparent 27px, var(--rule) 27px, var(--rule) 28px);
+    font-family: 'Inter','Segoe UI',Arial,sans-serif;
+    color: var(--ink); min-height:100vh; padding:30px 16px;
+  }
+  .page {
+    max-width:980px; margin:0 auto;
+    background:var(--paper);
+    box-shadow:2px 2px 8px rgba(0,0,0,.15),6px 6px 20px rgba(0,0,0,.08);
+    padding:48px 56px;
+  }
+  h1 { font-size:11px; letter-spacing:.3em; text-transform:uppercase;
+        color:var(--muted); margin-bottom:6px; }
+  h2 { font-size:26px; font-weight:700; margin-bottom:4px; }
+  .subtitle { font-style:italic; color:var(--muted); font-size:13px; margin-bottom:32px; }
+  .grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:20px; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:20px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
+  .stat {
+    border:1px solid var(--rule); padding:16px 18px;
+    background:rgba(255,255,255,.5);
+  }
+  .stat .lbl { font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+                color:var(--muted); margin-bottom:6px; }
+  .stat .val { font-size:26px; font-weight:700; line-height:1; margin-bottom:4px; }
+  .stat .sub { font-size:11px; color:var(--muted); }
+  section { margin-bottom:32px; }
+  section h3 { font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+                color:var(--muted); border-bottom:1px solid var(--rule);
+                padding-bottom:8px; margin-bottom:14px; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th { font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+        color:var(--muted); text-align:left; padding:6px 8px;
+        border-bottom:2px solid var(--rule); }
+  td { padding:6px 8px; border-bottom:1px solid var(--rule); vertical-align:middle; }
+  tr:last-child td { border-bottom:none; }
+  .footer { margin-top:40px; text-align:center; font-size:10px;
+             color:var(--muted); letter-spacing:.1em; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <h1>Kalshi BTC 15-Minute Markets — Anchor/Trigger Algorithm</h1>
+  <h2>Momentum Strategy — Live Dashboard</h2>
+  <div class="subtitle">BUY_YES + BUY_NO · ≥30¢ move · 9→7 min anchor/trigger · 100 contracts · auto-refreshes every 15 min</div>
+
+  <div style="background:rgba(45,90,39,.1);border-left:4px solid #2d5a27;padding:10px 16px;margin-bottom:20px;font-size:13px;color:#2d5a27">✓ Running — 0 trade(s) in flight</div>
+
+  <div class="grid4">
+    <div class="stat">
+      <div class="lbl">Total Live PnL</div>
+      <div class="val" style="color:#2d5a27">$+0.00</div>
+      <div class="sub">0 settled trades</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Win Rate</div>
+      <div class="val" style="color:#8b1a1a">0.0%</div>
+      <div class="sub">0W / 0L</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Daily PnL (today)</div>
+      <div class="val" style="color:#2d5a27">$+0.00</div>
+      <div class="sub">0 trades today</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Avg Slippage</div>
+      <div class="val" style="color:#8b1a1a">—</div>
+      <div class="sub"></div>
+    </div>
+  </div>
+
+  <div class="grid4">
+    <div class="stat">
+      <div class="lbl">Avg Win</div>
+      <div class="val" style="color:#2d5a27">$+0.00</div>
+      <div class="sub">per winning trade</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Avg Loss</div>
+      <div class="val" style="color:#8b1a1a">$+0.00</div>
+      <div class="sub">per losing trade</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">BUY_YES</div>
+      <div class="val" style="color:#2d5a27">$+0.00</div>
+      <div class="sub">0 trades · 0% WR</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">BUY_NO</div>
+      <div class="val" style="color:#2d5a27">$+0.00</div>
+      <div class="sub">0 trades · 0% WR</div>
+    </div>
+  </div>
+
+  <section>
+    <h3>Equity Curve</h3>
+    <div style="position:relative;height:200px;margin-bottom:8px">
+      <canvas id="eqChart"></canvas>
+    </div>
+    <script>
+    (function(){
+      const labels = [];
+      const values = [];
+      new Chart(document.getElementById('eqChart'), {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Cumulative PnL',
+            data: values,
+            borderColor: "#2d5a27",
+            backgroundColor: "#2d5a27" + '22',
+            borderWidth: 2,
+            pointRadius: values.length > 40 ? 0 : 3,
+            fill: true,
+            tension: 0.2,
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: false },
+            y: {
+              grid: { color: 'rgba(180,160,130,.2)' },
+              ticks: {
+                font: { family: "'Inter','Segoe UI',Arial,sans-serif", size: 11 },
+                color: '#6b5f4e',
+                callback: v => (v >= 0 ? '+' : '') + '$' + v.toFixed(2)
+              }
+            }
+          }
+        }
+      });
+    })();
+    </script>
+  </section>
+
+  <section>
+    <h3>PnL by Move Distance</h3>
+    <div style="position:relative;height:200px;margin-bottom:8px">
+      <canvas id="moveChart"></canvas>
+    </div>
+    <script>
+    (function(){
+      const labels  = ["25–29¢", "30–34¢", "35–39¢", "40–49¢", "50¢+"];
+      const pnls    = [0, 0, 0, 0, 0];
+      const counts  = [0, 0, 0, 0, 0];
+      const colors  = ["#2d5a27","#2d5a27","#2d5a27","#2d5a27","#2d5a27"];
+      new Chart(document.getElementById('moveChart'), {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Total PnL ($)',
+            data: pnls,
+            backgroundColor: colors.map(c => c + '33'),
+            borderColor: colors,
+            borderWidth: 2,
+            borderRadius: 3,
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => {
+                  const i = ctx.dataIndex;
+                  return ` ${ctx.parsed.x >= 0 ? '+' : ''}${ctx.parsed.x.toFixed(2)}  (${counts[i]} trades)`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(180,160,130,.2)' },
+              ticks: { font: { size: 11 }, color: '#6b5f4e',
+                        callback: v => (v >= 0 ? '+' : '') + '$' + v.toFixed(2) }
+            },
+            y: { grid: { display: false },
+                  ticks: { font: { size: 12 }, color: '#1a1510' } }
+          }
+        }
+      });
+    })();
+    </script>
+  </section>
+
+  <section>
+    <h3>Daily Breakdown</h3>
+    <table>
+      <tr>
+        <th>Date</th><th style="text-align:center">Trades</th>
+        <th style="text-align:center">Wins</th><th style="text-align:center">Losses</th>
+        <th style="text-align:center">Win Rate</th>
+        <th style="text-align:right">Day PnL</th>
+        <th style="text-align:right">Cumulative</th>
+      </tr>
+      <tr><td colspan="7" style="color:var(--muted);text-align:center;padding:20px">No settled trades yet</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h3>Recent Trades (last 20)</h3>
+    <table>
+      <tr>
+        <th>Time</th><th>Contract</th><th>Signal</th>
+        <th>Fill</th><th>Mid@Signal</th><th>Slippage</th>
+        <th>Move</th><th>BTC Price</th><th>Result</th><th>PnL</th>
+      </tr>
+      <tr><td colspan="10" style="color:var(--muted);text-align:center;padding:20px">No trades yet</td></tr>
+    </table>
+  </section>
+
+  <div class="footer">
+    Generated 2026-05-12 06:56:12 &nbsp;·&nbsp; BTC 15-Min Momentum &nbsp;·&nbsp; Anchor/Trigger · ≥30¢ threshold
+  </div>
+
+</div>
+</body>
+</html>
