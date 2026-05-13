@@ -501,16 +501,16 @@
 
   <section>
     <h3>PnL by Move Distance</h3>
-    <div style="position:relative;height:260px;margin-bottom:8px">
+    <div style="position:relative;height:360px;margin-bottom:8px">
       <canvas id="moveChart"></canvas>
     </div>
     <p style="font-size:11px;color:var(--muted);text-align:center">Total PnL ($) per move-distance bucket · 97 settled trades</p>
     <script>
     (function(){
-      const labels  = ["35–39¢", "40–49¢", "50–59¢", "60–69¢", "70–79¢", "80¢+"];
-      const pnls    = [543.0, 19.0, 29.0, 10.0, 0, 0];
-      const counts  = [80, 10, 6, 1, 0, 0];
-      const colors  = ["#2d5a27","#2d5a27","#2d5a27","#2d5a27","#2d5a27","#2d5a27"];
+      const labels  = ["30–34¢", "35¢", "36¢", "37¢", "38¢", "39¢", "40–49¢", "50–59¢", "60–69¢", "70–79¢", "80¢+"];
+      const pnls    = [625.0, -14.0, 31.0, 54.0, 123.0, -276.0, 19.0, 29.0, 10.0, 0, 0];
+      const counts  = [55, 6, 5, 2, 4, 8, 10, 6, 1, 0, 0];
+      const colors  = ["#2d5a27","#8b1a1a","#2d5a27","#2d5a27","#2d5a27","#8b1a1a","#2d5a27","#2d5a27","#2d5a27","#2d5a27","#2d5a27"];
       const borderC = colors.map(c => c);
       new Chart(document.getElementById('moveChart'), {
         type: 'bar',
@@ -564,7 +564,7 @@
   </section>
 
   <div class="footer">
-    Generated 2026-05-12 20:02:02 &nbsp;·&nbsp; ETH 15-Min Momentum &nbsp;·&nbsp; BUY_NO only · ≥35¢ threshold
+    Generated 2026-05-12 20:17:00 &nbsp;·&nbsp; ETH 15-Min Momentum &nbsp;·&nbsp; BUY_NO only · ≥35¢ threshold
   </div>
 
 </div>
