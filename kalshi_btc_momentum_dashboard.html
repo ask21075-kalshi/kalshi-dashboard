@@ -67,35 +67,35 @@
   <h2>Momentum Strategy — Live Dashboard</h2>
   <div class="subtitle">BUY_YES + BUY_NO · ≥30¢ move · 9→7 min anchor/trigger · 100 contracts · auto-refreshes every 15 min</div>
 
-  <div style="background:rgba(45,90,39,.1);border-left:4px solid #2d5a27;padding:10px 16px;margin-bottom:20px;font-size:13px;color:#2d5a27">✓ Running — 1 trade(s) in flight</div>
+  <div style="background:rgba(45,90,39,.1);border-left:4px solid #2d5a27;padding:10px 16px;margin-bottom:20px;font-size:13px;color:#2d5a27">✓ Running — 0 trade(s) in flight</div>
 
   <div class="grid4">
     <div class="stat">
       <div class="lbl">Total Live PnL</div>
-      <div class="val" style="color:#2d5a27">$+105.00</div>
-      <div class="sub">7 settled trades</div>
+      <div class="val" style="color:#2d5a27">$+187.00</div>
+      <div class="sub">8 settled trades</div>
     </div>
     <div class="stat">
       <div class="lbl">Win Rate</div>
-      <div class="val" style="color:#2d5a27">71.4%</div>
-      <div class="sub">5W / 2L</div>
+      <div class="val" style="color:#2d5a27">75.0%</div>
+      <div class="sub">6W / 2L</div>
     </div>
     <div class="stat">
       <div class="lbl">Daily PnL (today)</div>
-      <div class="val" style="color:#2d5a27">$+132.00</div>
-      <div class="sub">2 trades today</div>
+      <div class="val" style="color:#2d5a27">$+214.00</div>
+      <div class="sub">3 trades today</div>
     </div>
     <div class="stat">
       <div class="lbl">Avg Slippage</div>
-      <div class="val" style="color:#8b1a1a">+0.0¢</div>
-      <div class="sub"></div>
+      <div class="val" style="color:#8b1a1a">-0.1¢</div>
+      <div class="sub">worse than signal mid</div>
     </div>
   </div>
 
   <div class="grid4">
     <div class="stat">
       <div class="lbl">Avg Win</div>
-      <div class="val" style="color:#2d5a27">$+56.00</div>
+      <div class="val" style="color:#2d5a27">$+60.33</div>
       <div class="sub">per winning trade</div>
     </div>
     <div class="stat">
@@ -105,8 +105,8 @@
     </div>
     <div class="stat">
       <div class="lbl">BUY_YES</div>
-      <div class="val" style="color:#2d5a27">$+36.00</div>
-      <div class="sub">3 trades · 67% WR</div>
+      <div class="val" style="color:#2d5a27">$+118.00</div>
+      <div class="sub">4 trades · 75% WR</div>
     </div>
     <div class="stat">
       <div class="lbl">BUY_NO</div>
@@ -122,8 +122,8 @@
     </div>
     <script>
     (function(){
-      const labels = ["05-12 09:38", "05-12 10:52", "05-12 18:08", "05-12 22:07", "05-12 23:53", "05-13 02:38", "05-13 03:07"];
-      const values = [41.0, -24.0, 7.0, 83.0, -27.0, 33.0, 105.0];
+      const labels = ["05-12 09:38", "05-12 10:52", "05-12 18:08", "05-12 22:07", "05-12 23:53", "05-13 02:38", "05-13 03:07", "05-13 09:52"];
+      const values = [41.0, -24.0, 7.0, 83.0, -27.0, 33.0, 105.0, 187.0];
       new Chart(document.getElementById('eqChart'), {
         type: 'line',
         data: {
@@ -167,8 +167,8 @@
     <script>
     (function(){
       const labels  = ["25–29¢", "30–34¢", "35–39¢", "40–49¢", "50¢+"];
-      const pnls    = [0, 64.0, 41.0, 0, 0];
-      const counts  = [0, 6, 1, 0, 0];
+      const pnls    = [0, 146.0, 41.0, 0, 0];
+      const counts  = [0, 7, 1, 0, 0];
       const colors  = ["#2d5a27","#2d5a27","#2d5a27","#2d5a27","#2d5a27"];
       new Chart(document.getElementById('moveChart'), {
         type: 'bar',
@@ -234,12 +234,12 @@
         </tr>
         <tr>
           <td style="font-size:12px">2026-05-13</td>
-          <td style="text-align:center">2</td>
-          <td style="text-align:center;color:#2d5a27">2</td>
+          <td style="text-align:center">3</td>
+          <td style="text-align:center;color:#2d5a27">3</td>
           <td style="text-align:center;color:#8b1a1a">0</td>
           <td style="text-align:center;color:#2d5a27">100%</td>
-          <td style="text-align:right"><span style="color:#2d5a27;font-weight:600">$+132.00</span></td>
-          <td style="text-align:right"><span style="color:#2d5a27;font-weight:600">$+105.00</span></td>
+          <td style="text-align:right"><span style="color:#2d5a27;font-weight:600">$+214.00</span></td>
+          <td style="text-align:right"><span style="color:#2d5a27;font-weight:600">$+187.00</span></td>
         </tr>
     </table>
   </section>
@@ -262,8 +262,8 @@
           <td style="font-size:11px;color:#8b1a1a">-0.5¢</td>
           <td style="font-size:11px">+30¢</td>
           <td style="font-size:11px;color:#6b5f4e">$79,701</td>
-          <td><span style="background:rgba(180,120,20,.12);color:#7a5010;padding:2px 8px;border-radius:3px;font-size:11px;font-family:monospace">PENDING</span></td>
-          <td>—</td>
+          <td><span style="background:rgba(45,90,39,.12);color:#2d5a27;padding:2px 8px;border-radius:3px;font-size:11px;font-family:monospace">WIN</span></td>
+          <td><span style="color:#2d5a27;font-weight:600">$+82.00</span></td>
         </tr>
         <tr>
           <td style="color:#6b5f4e;font-size:11px">05-13 03:07</td>
@@ -353,7 +353,7 @@
   </section>
 
   <div class="footer">
-    Generated 2026-05-13 10:00:03 &nbsp;·&nbsp; BTC 15-Min Momentum &nbsp;·&nbsp; Anchor/Trigger · ≥30¢ threshold
+    Generated 2026-05-13 10:15:01 &nbsp;·&nbsp; BTC 15-Min Momentum &nbsp;·&nbsp; Anchor/Trigger · ≥30¢ threshold
   </div>
 
 </div>
