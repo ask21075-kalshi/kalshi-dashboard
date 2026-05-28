@@ -76,18 +76,18 @@
   <h2>Momentum Strategy — Live Dashboard</h2>
   <div class="subtitle">BUY_NO only · ≥35¢ move · ~7 min entry · 100 contracts · auto-refreshes every 15 min</div>
 
-  <div style="background:rgba(45,90,39,.1);border-left:4px solid #2d5a27;padding:10px 16px;margin-bottom:20px;font-size:13px;color:#2d5a27">✓ Running — 0 trade(s) in flight</div>
+  <div style="background:rgba(139,26,26,.1);border-left:4px solid #8b1a1a;padding:10px 16px;margin-bottom:20px;font-size:13px;color:#8b1a1a">⛔ Kill switch active: Daily loss cap hit ($-141.00)</div>
 
   <div class="grid4">
     <div class="stat">
       <div class="lbl">Total Live PnL</div>
-      <div class="val" style="color:#2d6a27">$+34.00</div>
-      <div class="sub">146 settled trades</div>
+      <div class="val" style="color:#8b1a1a">$-30.00</div>
+      <div class="sub">147 settled trades</div>
     </div>
     <div class="stat">
       <div class="lbl">Win Rate</div>
-      <div class="val" style="color:#8b1a1a">75.3%</div>
-      <div class="sub">110W / 36L</div>
+      <div class="val" style="color:#8b1a1a">74.8%</div>
+      <div class="sub">110W / 37L</div>
     </div>
     <div class="stat">
       <div class="lbl">Avg Slippage vs Paper</div>
@@ -96,8 +96,8 @@
     </div>
     <div class="stat">
       <div class="lbl">Daily PnL (today)</div>
-      <div class="val" style="color:#8b1a1a">$-77.00</div>
-      <div class="sub">1 trades today</div>
+      <div class="val" style="color:#8b1a1a">$-141.00</div>
+      <div class="sub">2 trades today</div>
     </div>
   </div>
 
@@ -109,7 +109,7 @@
     </div>
     <div class="stat">
       <div class="lbl">Avg Loss</div>
-      <div class="val" style="color:#8b1a1a">$-75.08</div>
+      <div class="val" style="color:#8b1a1a">$-74.78</div>
       <div class="sub">per settled losing trade</div>
     </div>
   </div>
@@ -123,7 +123,7 @@
       </div>
       <div class="row">
         <span style="color:var(--muted)">Live PnL (filtered, this session)</span>
-        <span style="font-weight:600">$+34.00 &nbsp; 75% win &nbsp; 146 trades</span>
+        <span style="font-weight:600">$-30.00 &nbsp; 75% win &nbsp; 147 trades</span>
       </div>
       <div class="row">
         <span style="color:var(--muted)">Avg slippage (live fill vs paper mid)</span>
@@ -409,14 +409,14 @@
         </tr>
         <tr>
           <td style="font-size:12px">2026-05-27</td>
-          <td style="text-align:center">1</td>
+          <td style="text-align:center">2</td>
           <td style="text-align:center;color:#2d5a27">0</td>
-          <td style="text-align:center;color:#8b1a1a">1</td>
+          <td style="text-align:center;color:#8b1a1a">2</td>
           <td style="text-align:center;color:#8b1a1a">0%</td>
           <td style="text-align:right;color:#2d5a27;font-size:12px">$+0.00</td>
-          <td style="text-align:right;color:#8b1a1a;font-size:12px">$-77.00</td>
-          <td style="text-align:right"><span style="color:#8b1a1a;font-weight:600">$-77.00</span></td>
-          <td style="text-align:right"><span style="color:#2d6a27;font-weight:600">$+34.00</span></td>
+          <td style="text-align:right;color:#8b1a1a;font-size:12px">$-141.00</td>
+          <td style="text-align:right"><span style="color:#8b1a1a;font-weight:600">$-141.00</span></td>
+          <td style="text-align:right"><span style="color:#8b1a1a;font-weight:600">$-30.00</span></td>
         </tr>
     </table>
   </section>
@@ -430,6 +430,17 @@
         <th>Move</th><th>Result</th><th>PnL</th>
       </tr>
       
+        <tr>
+          <td style="color:#6b5f4e;font-size:11px">05-27 23:38</td>
+          <td style="font-size:11px">MAY280045-45</td>
+          <td style="color:#2d5a27;font-weight:600;font-size:11px">BUY_NO</td>
+          <td style="font-size:11px">36¢</td>
+          <td style="font-size:11px;color:#6b5f4e">38¢</td>
+          <td style="font-size:11px;color:#2d5a27">+2.5¢</td>
+          <td style="font-size:11px">-45¢</td>
+          <td><span style="background:rgba(139,26,26,.12);color:#8b1a1a;padding:2px 8px;border-radius:3px;font-size:11px;font-family:monospace">LOSS</span></td>
+          <td><span style="color:#8b1a1a;font-weight:600">$-64.00</span></td>
+        </tr>
         <tr>
           <td style="color:#6b5f4e;font-size:11px">05-27 18:52</td>
           <td style="font-size:11px">MAY272000-00</td>
@@ -639,17 +650,6 @@
           <td><span style="background:rgba(139,26,26,.12);color:#8b1a1a;padding:2px 8px;border-radius:3px;font-size:11px;font-family:monospace">LOSS</span></td>
           <td><span style="color:#8b1a1a;font-weight:600">$-68.00</span></td>
         </tr>
-        <tr>
-          <td style="color:#6b5f4e;font-size:11px">05-19 19:07</td>
-          <td style="font-size:11px">MAY192015-15</td>
-          <td style="color:#2d5a27;font-weight:600;font-size:11px">BUY_NO</td>
-          <td style="font-size:11px">25¢</td>
-          <td style="font-size:11px;color:#6b5f4e">26¢</td>
-          <td style="font-size:11px;color:#2d5a27">+0.5¢</td>
-          <td style="font-size:11px">-31¢</td>
-          <td><span style="background:rgba(45,90,39,.12);color:#2d5a27;padding:2px 8px;border-radius:3px;font-size:11px;font-family:monospace">WIN</span></td>
-          <td><span style="color:#2d6a27;font-weight:600">$+25.00</span></td>
-        </tr>
     </table>
   </section>
 
@@ -658,12 +658,12 @@
     <div style="position:relative;height:360px;margin-bottom:8px">
       <canvas id="moveChart"></canvas>
     </div>
-    <p style="font-size:11px;color:var(--muted);text-align:center">Total PnL ($) per move-distance bucket · 146 settled trades</p>
+    <p style="font-size:11px;color:var(--muted);text-align:center">Total PnL ($) per move-distance bucket · 147 settled trades</p>
     <script>
     (function(){
       const labels  = ["30–34¢", "35¢", "36¢", "37¢", "38¢", "39¢", "40–49¢", "50–59¢", "60–69¢", "70–79¢", "80¢+"];
-      const pnls    = [312.0, -34.0, 31.0, -1.0, 101.0, -235.0, -20.0, -130.0, 10.0, 0, 0];
-      const counts  = [75, 9, 5, 3, 6, 10, 26, 11, 1, 0, 0];
+      const pnls    = [312.0, -34.0, 31.0, -1.0, 101.0, -235.0, -84.0, -130.0, 10.0, 0, 0];
+      const counts  = [75, 9, 5, 3, 6, 10, 27, 11, 1, 0, 0];
       const colors  = ["#2d5a27","#8b1a1a","#2d5a27","#8b1a1a","#2d5a27","#8b1a1a","#8b1a1a","#8b1a1a","#2d5a27","#2d5a27","#2d5a27"];
       const borderC = colors.map(c => c);
       new Chart(document.getElementById('moveChart'), {
@@ -718,7 +718,7 @@
   </section>
 
   <div class="footer">
-    Generated 2026-05-27 23:32:03 &nbsp;·&nbsp; ETH 15-Min Momentum &nbsp;·&nbsp; BUY_NO only · ≥35¢ threshold
+    Generated 2026-05-27 23:47:04 &nbsp;·&nbsp; ETH 15-Min Momentum &nbsp;·&nbsp; BUY_NO only · ≥35¢ threshold
   </div>
 
 </div>
