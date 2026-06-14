@@ -37,17 +37,23 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--loop", action="store_true")
+    ap.add_argument("--capital", type=float, default=None,
+                    help="starting sleeve budget (overrides ALPACA_CAPITAL)")
     args = ap.parse_args()
 
     load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
     if "ALPACA_API_KEY" not in os.environ:
         sys.exit("Set ALPACA_API_KEY and ALPACA_SECRET_KEY (see .env.example)")
 
+    budget = (args.capital if args.capital is not None
+              else float(os.environ.get("ALPACA_CAPITAL", "10000")))
     p = load_params()
     log.info("params: %s", p)
+    log.info("capital sleeve: $%.2f (isolated from the rest of the account)",
+             budget)
     while True:
         try:
-            run_once(p, dry_run=args.dry_run)
+            run_once(p, budget=budget, dry_run=args.dry_run)
         except Exception:
             log.exception("run failed")
             if not args.loop:

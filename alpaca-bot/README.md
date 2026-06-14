@@ -4,6 +4,16 @@ A daily momentum-rotation strategy for Alpaca **paper trading**, seeded with
 $10,000. Long-only crypto (BTC, ETH, SOL, DOGE, AVAX, LINK, LTC, BCH, UNI,
 AAVE, DOT, XRP), rebalanced once per day.
 
+### Isolated capital sleeve
+
+The bot manages its own **$10,000 sleeve**: it tracks its cash and coin
+holdings in `state.json` and sizes every position against *that* budget, not
+the account total. It never reads or touches the account's other positions,
+so it runs safely alongside another strategy on the same paper account —
+even one trading the same coins. Set the budget with `ALPACA_CAPITAL` (or
+`--capital`). Drawdown and the circuit breaker track the sleeve's own
+equity. To reset the sleeve, delete `state.json`.
+
 ## How it works
 
 Each day, on daily closes:
