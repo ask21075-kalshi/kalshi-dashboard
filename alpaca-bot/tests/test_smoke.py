@@ -106,9 +106,30 @@ def test_sleeve_skips_dust():
     assert deltas.empty
 
 
+def test_equity_log_one_row_per_date(tmp_path="/tmp/claude_eqlog_test.csv"):
+    if os.path.exists(tmp_path):
+        os.remove(tmp_path)
+    px = pd.Series({"btc": 100.0})
+    s = live.Sleeve(cash=10_000.0, peak=10_000.0)
+    live.append_log("2026-06-26", s, px, 0.0, 1.0, path=tmp_path)
+    s2 = live.Sleeve(cash=5_000.0, holdings={"btc": 50.0}, peak=10_000.0)
+    live.append_log("2026-06-27", s2, px, 0.0, 1.0, path=tmp_path)
+    # re-logging the same date overwrites, not appends
+    live.append_log("2026-06-27", s2, px, 0.05, 0.5, path=tmp_path)
+    import csv as _csv
+    with open(tmp_path) as f:
+        rows = list(_csv.DictReader(f))
+    assert [r["date"] for r in rows] == ["2026-06-26", "2026-06-27"]
+    assert rows[0]["positions"] == "cash"
+    assert rows[1]["positions"] == "btc:0.500"   # $5000 of $10000
+    assert rows[1]["invested"] == "5000.00"
+    assert rows[1]["breaker_scale"] == "0.50"    # latest write wins
+    os.remove(tmp_path)
+
+
 if __name__ == "__main__":
     for fn in [test_weights_sane, test_breaker_recovers,
                test_sleeve_budget_and_orders, test_sleeve_round_trip_keeps_budget,
-               test_sleeve_skips_dust]:
+               test_sleeve_skips_dust, test_equity_log_one_row_per_date]:
         fn()
         print(f"ok {fn.__name__}")

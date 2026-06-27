@@ -112,6 +112,20 @@ delete `state.json`.
 
 ---
 
+## Tracking performance: `equity_log.csv`
+
+Each day it runs, the bot appends a row to **`equity_log.csv`** in the
+`alpaca-bot` folder — a record of just *your* $10k sleeve, separate from
+the rest of the Alpaca account. Columns: date, equity, cash, invested,
+drawdown %, breaker scale, and which coins it holds. Open it anytime:
+```
+open equity_log.csv
+```
+It opens in Numbers (or Excel) as a normal spreadsheet, one row per day, so
+you can chart the sleeve's equity over time at a glance.
+
+---
+
 ## Later: making it permanent
 
 `--loop` stops if the Terminal closes or the Mac restarts. When you're

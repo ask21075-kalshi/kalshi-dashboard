@@ -2,3 +2,4 @@
 state.json
 data/
 __pycache__/
+equity_log.csv

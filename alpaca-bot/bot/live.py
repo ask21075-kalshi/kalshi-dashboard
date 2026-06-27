@@ -21,6 +21,7 @@ The starting budget is ALPACA_CAPITAL (default 10000).
 import json
 import logging
 import os
+import csv
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timedelta, timezone
 
@@ -32,6 +33,9 @@ from .strategy import Breaker, Params, compute_signals, target_weights
 log = logging.getLogger("bot")
 
 STATE_PATH = os.path.join(os.path.dirname(__file__), "..", "state.json")
+LOG_PATH = os.path.join(os.path.dirname(__file__), "..", "equity_log.csv")
+LOG_FIELDS = ["date", "equity", "cash", "invested", "drawdown_pct",
+              "breaker_scale", "positions"]
 MIN_ORDER_USD = 10.0
 FEE = 0.0025  # Alpaca crypto taker fee, applied to the sleeve's cash ledger
 
@@ -124,6 +128,35 @@ class Sleeve:
         self.cash -= usd + abs(usd) * FEE  # fee always costs cash
 
 
+def positions_str(sleeve: Sleeve, last_px: pd.Series) -> str:
+    """Compact human-readable holdings, e.g. 'btc:0.203 eth:0.150' or 'cash'."""
+    val = sleeve.holding_value(last_px)
+    eq = sleeve.equity(last_px)
+    parts = [f"{a}:{v / eq:.3f}" for a, v in val.items() if v > 1e-9 and eq > 0]
+    return " ".join(parts) if parts else "cash"
+
+
+def append_log(date: str, sleeve: Sleeve, last_px: pd.Series,
+               drawdown: float, scale, path: str = LOG_PATH) -> dict:
+    """Append one daily row to the equity log, keeping a single row per date."""
+    eq = sleeve.equity(last_px)
+    row = {"date": date, "equity": f"{eq:.2f}", "cash": f"{sleeve.cash:.2f}",
+           "invested": f"{eq - sleeve.cash:.2f}",
+           "drawdown_pct": f"{drawdown * 100:.2f}",
+           "breaker_scale": "" if scale is None else f"{scale:.2f}",
+           "positions": positions_str(sleeve, last_px)}
+    rows = []
+    if os.path.exists(path):
+        with open(path, newline="") as f:
+            rows = [r for r in csv.DictReader(f) if r.get("date") != date]
+    rows.append(row)
+    with open(path, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=LOG_FIELDS)
+        w.writeheader()
+        w.writerows(rows)
+    return row
+
+
 def plan_orders(sleeve: Sleeve, pairs: dict, w_tgt: pd.Series,
                 last_px: pd.Series) -> pd.Series:
     """Target-minus-current dollar trades per asset, dust filtered."""
@@ -163,8 +196,15 @@ def run_once(p: Params, budget: float = 10_000.0, dry_run: bool = False):
     log.info("bars: %s rows, last close %s", len(closes), last_day.date())
 
     sleeve = Sleeve.load(budget)
-    if sleeve.last_run == str(last_day.date()):
-        log.info("already ran for %s, nothing to do", sleeve.last_run)
+    today_str = str(last_day.date())
+
+    if sleeve.last_run == today_str:
+        equity = sleeve.equity(last_px)
+        dd = (1.0 - equity / sleeve.peak) if sleeve.peak > 0 else 0.0
+        log.info("already ran for %s | sleeve equity $%.2f (cash $%.2f)",
+                 sleeve.last_run, equity, sleeve.cash)
+        if not dry_run:
+            append_log(today_str, sleeve, last_px, dd, None)
         return
 
     equity = sleeve.equity(last_px)
@@ -188,7 +228,8 @@ def run_once(p: Params, budget: float = 10_000.0, dry_run: bool = False):
     if not dry_run:
         sleeve.peak = breaker.peak
         sleeve.halt_days_left = breaker.halt_days_left
-        sleeve.last_run = str(last_day.date())
+        sleeve.last_run = today_str
         sleeve.save()
-        log.info("sleeve saved: cash $%.2f, holdings %s",
-                 sleeve.cash, {k: round(v, 6) for k, v in sleeve.holdings.items()})
+        row = append_log(today_str, sleeve, last_px, breaker.drawdown, scale)
+        log.info("sleeve saved & logged: equity $%s, cash $%s, holding %s",
+                 row["equity"], row["cash"], row["positions"])
