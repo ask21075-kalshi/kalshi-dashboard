@@ -1,0 +1,25 @@
+{
+  "mom_windows": [
+    7,
+    30,
+    90
+  ],
+  "mom_weights": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "ema_window": 50,
+  "regime_asset": "btc",
+  "regime_ema": 100,
+  "top_k": 3,
+  "hold_k": 5,
+  "min_score": 0.0,
+  "vol_window": 20,
+  "target_vol": 0.6,
+  "band": 0.05,
+  "dd_soft": 0.2,
+  "dd_hard": 0.3,
+  "dd_cooldown": 10,
+  "min_history": 100
+}
